@@ -37,3 +37,21 @@ func (t *Tenants) CurrentTenant() (tenant *Tenant, err error) {
 	err = t.client.Get(stormpath.BaseUrl+"/tenants/current", nil, tenant)
 	return
 }
+
+func (t *Tenants) Applications() ([]Application, error) {
+	tenant, err := t.CurrentTenant()
+	if err != nil {
+		return nil, err
+	}
+
+	result := struct {
+		Items []Application `json:"items"`
+	}{}
+
+	err = t.client.Get(tenant.Applications.Href(), nil, &result)
+	if err != nil {
+		return nil, err
+	}
+
+	return result.Items, nil
+}
