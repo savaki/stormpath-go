@@ -1,0 +1,9 @@
+# ignore intellij
+/*.ipr
+/*.iws
+/*.iml
+/.idea
+/.idea_modules
+
+# ignore env
+/*.env
