@@ -54,14 +54,13 @@ func (a *Accounts) Search(email string) ([]Account, error) {
 func encode(username, password string) string {
 	buf := &bytes.Buffer{}
 	w := base64.NewEncoder(base64.StdEncoding, buf)
-	defer w.Close()
-
 	w.Write([]byte(username + ":" + password))
+	w.Close()
 
 	return buf.String()
 }
 
-func (a *Accounts) Login(username, password string) (Map, error) {
+func (a *Accounts) Login(username, password string) (Url, error) {
 	// request
 	body := struct {
 		Type  string `json:"type"`
