@@ -16,6 +16,7 @@ var AccountCommand cli.Command = cli.Command{
 	Subcommands: []cli.Command{
 		{
 			Name:   "search",
+			Usage:  "find accounts matching the specified criteria",
 			Flags:  []cli.Flag{FlagEmail},
 			Action: accountSearch,
 		},

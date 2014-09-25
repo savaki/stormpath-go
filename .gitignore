@@ -10,3 +10,6 @@
 
 # ignore json
 **.json
+
+# ignore binaries
+/stormpath/stormpath
