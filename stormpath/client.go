@@ -23,7 +23,7 @@ func WithTenant(apiKey auth.ApiKey, tenant *Tenant) *Client {
 }
 
 func WithCurrentTenant(apiKey auth.ApiKey) (*Client, error) {
-	return WithTenant(apiKey, nil).WithDefaultTenant()
+	return WithTenant(apiKey, nil).WithCurrentTenant()
 }
 
 func (c *Client) WithContext(ctx context.Context) *Client {
@@ -42,7 +42,7 @@ func (c *Client) WithTenant(tenant *Tenant) *Client {
 	}
 }
 
-func (c *Client) WithDefaultTenant() (*Client, error) {
+func (c *Client) WithCurrentTenant() (*Client, error) {
 	tenant, err := c.CurrentTenant()
 	if err != nil {
 		return nil, err
@@ -53,7 +53,7 @@ func (c *Client) WithDefaultTenant() (*Client, error) {
 
 func (c *Client) CurrentTenant() (*Tenant, error) {
 	tenant := &Tenant{}
-	err := c.client.Post(c.ctx, BaseUrl+"/tenants/current", nil, tenant)
+	err := c.client.Get(c.ctx, BaseUrl+"/tenants/current", nil, tenant)
 	return tenant, err
 }
 

@@ -9,27 +9,27 @@ const (
 )
 
 type Tenant struct {
-	Href         string `json:"href"`
-	Name         string `json:"name"`
-	Key          string `json:"key"`
-	CustomData   Map    `json:"customData"`
-	Applications Map    `json:"applications"`
-	Directories  Map    `json:"directories"`
+	Href         string `json:"href,omityempty"`
+	Name         string `json:"name,omityempty"`
+	Key          string `json:"key,omityempty"`
+	CustomData   Map    `json:"customData,omityempty"`
+	Applications Map    `json:"applications,omityempty"`
+	Directories  Map    `json:"directories,omityempty"`
 }
 
 type Application struct {
-	Href                       string `json:"href"`
-	Name                       string `json:"name"`
-	Description                string `json:"description"`
-	Status                     string `json:"status"`
-	Tenant                     Map    `json:"tenant"`
-	DefaultAccountStoreMapping Map    `json:"defaultAccountStoreMap()ping"`
-	DefaultGroupStoreMapping   Map    `json:"defaultGroupStoreMap()ping"`
-	CustomData                 Map    `json:"customData"`
-	Accounts                   Map    `json:"accounts"`
-	Groups                     Map    `json:"groups"`
-	AccountStoreMappings       Map    `json:"accountStoreMap()pings"`
-	LoginAttempts              Map    `json:"loginAttempts"`
-	PasswordResetTokens        Map    `json:"passwordResetTokens"`
-	ApiKeys                    Map    `json:"apiKeys"`
+	Href                       string `json:"href,omityempty"`
+	Name                       string `json:"name,omityempty"`
+	Description                string `json:"description,omityempty"`
+	Status                     string `json:"status,omityempty"`
+	Tenant                     Map    `json:"tenant,omityempty"`
+	DefaultAccountStoreMapping Map    `json:"defaultAccountStoreMap()ping,omityempty"`
+	DefaultGroupStoreMapping   Map    `json:"defaultGroupStoreMap()ping,omityempty"`
+	CustomData                 Map    `json:"customData,omityempty"`
+	Accounts                   Map    `json:"accounts,omityempty"`
+	Groups                     Map    `json:"groups,omityempty"`
+	AccountStoreMappings       Map    `json:"accountStoreMap()pings,omityempty"`
+	LoginAttempts              Map    `json:"loginAttempts,omityempty"`
+	PasswordResetTokens        Map    `json:"passwordResetTokens,omityempty"`
+	ApiKeys                    Map    `json:"apiKeys,omityempty"`
 }

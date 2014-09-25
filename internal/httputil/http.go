@@ -10,6 +10,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"os"
 )
 
 const (
@@ -107,7 +108,8 @@ func (h *client) Do(ctx context.Context, req *http.Request, v interface{}) error
 	}
 
 	if resp.StatusCode != http.StatusOK {
-		return errors.New(fmt.Sprintf("returned status code => %d", resp.StatusCode))
+		io.Copy(os.Stdout, resp.Body)
+		return errors.New(fmt.Sprintf("%s %s returned status code => %d", req.Method, req.URL, resp.StatusCode))
 	}
 
 	if v != nil {
