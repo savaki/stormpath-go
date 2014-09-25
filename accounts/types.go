@@ -8,6 +8,7 @@ type Account struct {
 	Href                   string `json:"href,omitempty,omitempty"`
 	Username               string `json:"username,omitempty"`
 	Email                  string `json:"email,omitempty"`
+	Password               string `json:"password,omitempty"`
 	FullName               string `json:"fullName,omitempty"`
 	GivenName              string `json:"givenName,omitempty"`
 	MiddleName             string `json:"middleName,omitempty"`
@@ -19,4 +20,8 @@ type Account struct {
 	Directory              Map    `json:"directory,omitempty"`
 	Tenant                 Map    `json:"tenant,omitempty"`
 	EmailVerificationToken string `json:"emailVerificationToken,omitempty"`
+}
+
+func (a Account) Url() string {
+	return a.Href
 }

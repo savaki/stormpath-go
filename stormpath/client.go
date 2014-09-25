@@ -62,7 +62,7 @@ func (c *Client) Applications() ([]Application, error) {
 		Items []Application `json:"items"`
 	}{}
 
-	err := c.client.Get(c.ctx, c.tenant.Applications.Href(), nil, &result)
+	err := c.client.Get(c.ctx, c.tenant.Applications.Url(), nil, &result)
 	if err != nil {
 		return nil, err
 	}
@@ -75,7 +75,7 @@ func (c *Client) Directories() ([]Map, error) {
 		Items []Map `json:"items"`
 	}{}
 
-	err := c.client.Get(c.ctx, c.tenant.Directories.Href(), nil, &result)
+	err := c.client.Get(c.ctx, c.tenant.Directories.Url(), nil, &result)
 	if err != nil {
 		return nil, err
 	}

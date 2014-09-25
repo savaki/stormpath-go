@@ -1,9 +1,12 @@
 package accounts
 
 import (
+	"bytes"
 	"code.google.com/p/go.net/context"
+	"encoding/base64"
 	"github.com/savaki/stormpath-go/auth"
 	"github.com/savaki/stormpath-go/internal/httputil"
+	. "github.com/savaki/stormpath-go/types"
 	"net/url"
 )
 
@@ -30,24 +33,57 @@ func (a *Accounts) WithContext(ctx context.Context) *Accounts {
 	}
 }
 
-func New(authFunc auth.AuthFunc) *Accounts {
-	httpClient := httputil.NewClient(authFunc)
-	return &Accounts{
-		client: httpClient,
-		ctx:    context.Background(),
-	}
-}
-
-func (a *Accounts) CreateAccount(account Account) (created *Account, err error) {
+func (a *Accounts) Create(account Account) (created *Account, err error) {
 	created = &Account{}
 	err = a.client.Post(a.ctx, a.applicationUrl+"/accounts", account, created)
 	return
 }
 
-func (a *Accounts) Search(email string) (accounts []Account, err error) {
-	accounts = []Account{}
+func (a *Accounts) Search(email string) ([]Account, error) {
+	results := struct {
+		Items []Account `json:"items"`
+	}{}
 	params := &url.Values{}
-	params.Add("email", email)
-	err = a.client.Get(a.ctx, a.applicationUrl+"/accounts", params, nil)
-	return
+	if email != "" {
+		params.Add("email", email)
+	}
+	err := a.client.Get(a.ctx, a.applicationUrl+"/accounts", params, &results)
+	return results.Items, err
+}
+
+func encode(username, password string) string {
+	buf := &bytes.Buffer{}
+	w := base64.NewEncoder(base64.StdEncoding, buf)
+	defer w.Close()
+
+	w.Write([]byte(username + ":" + password))
+
+	return buf.String()
+}
+
+func (a *Accounts) Login(username, password string) (Map, error) {
+	// request
+	body := struct {
+		Type  string `json:"type"`
+		Value string `json:"value"`
+	}{
+		Type:  "basic",
+		Value: encode(username, password),
+	}
+
+	// response
+	response := struct {
+		Account Map `json:"account"`
+	}{}
+
+	err := a.client.Post(a.ctx, a.applicationUrl+"/loginAttempts", body, &response)
+	if err != nil {
+		return nil, err
+	}
+
+	return response.Account, nil
+}
+
+func (a *Accounts) Delete(account Url) error {
+	return a.client.Delete(a.ctx, account.Url())
 }

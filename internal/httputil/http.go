@@ -4,13 +4,11 @@ import (
 	"bytes"
 	"code.google.com/p/go.net/context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"github.com/savaki/stormpath-go/auth"
 	"io"
 	"net/http"
 	"net/url"
-	"os"
 )
 
 const (
@@ -20,6 +18,7 @@ const (
 type HttpClient interface {
 	Get(ctx context.Context, path string, params *url.Values, v interface{}) error
 	Post(ctx context.Context, path string, body interface{}, v interface{}) error
+	Delete(ctx context.Context, path string) error
 }
 
 func NewClient(authFunc auth.AuthFunc) HttpClient {
@@ -62,12 +61,21 @@ func (h *client) Post(ctx context.Context, path string, data interface{}, v inte
 	return h.Do(ctx, req, v)
 }
 
+func (h *client) Delete(ctx context.Context, path string) error {
+	req, _ := http.NewRequest("DELETE", path, nil)
+	return h.Do(ctx, req, nil)
+}
+
 type response struct {
 	resp *http.Response
 	err  error
 }
 
 func (h *client) Do(ctx context.Context, req *http.Request, v interface{}) error {
+	if req.URL.String() == "" {
+		return fmt.Errorf("invalid attempt to %s to an empty url", req.Method)
+	}
+
 	req.Header.Set("User-Agent", userAgent)
 	req.Header.Set("Accept", "application/json")
 
@@ -107,14 +115,27 @@ func (h *client) Do(ctx context.Context, req *http.Request, v interface{}) error
 		return h.Get(ctx, location, nil, v)
 	}
 
-	if resp.StatusCode != http.StatusOK {
-		io.Copy(os.Stdout, resp.Body)
-		return errors.New(fmt.Sprintf("%s %s returned status code => %d", req.Method, req.URL, resp.StatusCode))
+	buf := bytes.NewBuffer([]byte{})
+	io.Copy(buf, resp.Body)
+	data := buf.Bytes()
+
+	if !ok(resp.StatusCode) {
+		errMsg := &ErrorMessage{Request: req}
+		err = json.Unmarshal(data, errMsg)
+		if err != nil {
+			return err
+		}
+		return errMsg
 	}
 
 	if v != nil {
-		return json.NewDecoder(resp.Body).Decode(v)
+		err = json.Unmarshal(data, v)
 	}
 
-	return nil
+	return err
+}
+
+func ok(statusCode int) bool {
+	firstDigit := statusCode / 100
+	return firstDigit == 2
 }

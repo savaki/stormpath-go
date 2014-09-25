@@ -11,3 +11,11 @@ func (m Map) Href() string {
 		return ""
 	}
 }
+
+func (m Map) Url() string {
+	return m.Href()
+}
+
+type Url interface {
+	Url() string
+}
