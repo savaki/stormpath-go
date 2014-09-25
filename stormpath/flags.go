@@ -7,5 +7,5 @@ const (
 )
 
 var (
-	FlagEmail = cli.StringFlag{FieldEmail, "", "specify email address"}
+	FlagEmail = cli.StringFlag{FieldEmail, "", "specify email address", ""}
 )
