@@ -6,10 +6,6 @@ import (
 	"os"
 )
 
-const (
-	BaseUrl = "https://api.stormpath.com/v1"
-)
-
 type ApiKey struct {
 	Id     string
 	Secret string

@@ -1,7 +1,11 @@
-package tenants
+package stormpath
 
 import (
 	. "github.com/savaki/stormpath-go/types"
+)
+
+const (
+	BaseUrl = "https://api.stormpath.com/v1"
 )
 
 type Tenant struct {
