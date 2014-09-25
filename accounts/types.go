@@ -1,7 +1,7 @@
 package accounts
 
 import (
-	. "github.com/savaki/stormpath-go/stormpath"
+	. "github.com/savaki/stormpath-go/types"
 )
 
 type Account struct {

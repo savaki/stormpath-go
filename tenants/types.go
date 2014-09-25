@@ -1,7 +1,7 @@
 package tenants
 
 import (
-	. "github.com/savaki/stormpath-go/stormpath"
+	. "github.com/savaki/stormpath-go/types"
 )
 
 type Tenant struct {

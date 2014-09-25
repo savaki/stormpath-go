@@ -1,4 +1,4 @@
-package stormpath
+package types
 
 import "fmt"
 
