@@ -1,14 +1,13 @@
-package stormpath
+package auth
 
 import (
 	"errors"
+	"net/http"
 	"os"
 )
 
 const (
-	version   = "0.1"
-	userAgent = "stormpath-go:" + version
-	BaseUrl   = "https://api.stormpath.com/v1"
+	BaseUrl = "https://api.stormpath.com/v1"
 )
 
 type ApiKey struct {
@@ -45,4 +44,13 @@ func EnvAuth() (apiKey ApiKey, err error) {
 		err = errors.New("STORMPATH_API_KEY_SECRET or STORMPATH_API_SECRET not found in environment")
 	}
 	return
+}
+
+type AuthFunc func(*http.Request)
+
+func Authenticator(apiKey ApiKey) AuthFunc {
+	_apiKey := apiKey
+	return func(req *http.Request) {
+		req.SetBasicAuth(_apiKey.Id, _apiKey.Secret)
+	}
 }

@@ -2,23 +2,18 @@ package tenants
 
 import (
 	"code.google.com/p/go.net/context"
-	"github.com/savaki/stormpath-go/stormpath"
-	"net/http"
+	"github.com/savaki/stormpath-go/auth"
+	"github.com/savaki/stormpath-go/internal/httputil"
 )
 
 type Tenants struct {
-	apiKey stormpath.ApiKey
-	client stormpath.Http
+	client httputil.HttpClient
 	ctx    context.Context
 }
 
-func New(apiKey stormpath.ApiKey) *Tenants {
-	client := &http.Client{
-		Transport: &http.Transport{},
-	}
-	httpClient := &stormpath.HttpClient{ApiKey: apiKey, Client: client}
+func New(authFunc auth.AuthFunc) *Tenants {
+	httpClient := httputil.NewClient(authFunc)
 	return &Tenants{
-		apiKey: apiKey,
 		client: httpClient,
 		ctx:    context.Background(),
 	}
@@ -26,7 +21,6 @@ func New(apiKey stormpath.ApiKey) *Tenants {
 
 func (t *Tenants) WithContext(ctx context.Context) *Tenants {
 	return &Tenants{
-		apiKey: t.apiKey,
 		client: t.client,
 		ctx:    ctx,
 	}
@@ -34,7 +28,7 @@ func (t *Tenants) WithContext(ctx context.Context) *Tenants {
 
 func (t *Tenants) CurrentTenant() (tenant *Tenant, err error) {
 	tenant = &Tenant{}
-	err = t.client.Get(stormpath.BaseUrl+"/tenants/current", nil, tenant)
+	err = t.client.Get(t.ctx, auth.BaseUrl+"/tenants/current", nil, tenant)
 	return
 }
 
@@ -48,7 +42,7 @@ func (t *Tenants) Applications() ([]Application, error) {
 		Items []Application `json:"items"`
 	}{}
 
-	err = t.client.Get(tenant.Applications.Href(), nil, &result)
+	err = t.client.Get(t.ctx, tenant.Applications.Href(), nil, &result)
 	if err != nil {
 		return nil, err
 	}

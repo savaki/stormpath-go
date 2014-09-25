@@ -1,25 +1,25 @@
 package tenants
 
 import (
-	"github.com/savaki/stormpath-go/stormpath"
+	"github.com/savaki/stormpath-go/auth"
 	. "github.com/smartystreets/goconvey/convey"
 	"testing"
 )
 
 func TestCurrentTenant(t *testing.T) {
-	if _, err := stormpath.EnvAuth(); err != nil {
+	if _, err := auth.EnvAuth(); err != nil {
 		return
 	}
 
 	var tenants *Tenants
-	var apiKey stormpath.ApiKey
+	var apiKey auth.ApiKey
 	var tenant *Tenant
 	var err error
 	var applications []Application
 
 	Convey("Given a Tenants instance", t, func() {
-		apiKey, _ = stormpath.EnvAuth()
-		tenants = New(apiKey)
+		apiKey, _ = auth.EnvAuth()
+		tenants = New(auth.Authenticator(apiKey))
 
 		Convey("When I find #CurrentTenant", func() {
 			tenant, err = tenants.CurrentTenant()

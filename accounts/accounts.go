@@ -2,23 +2,18 @@ package accounts
 
 import (
 	"code.google.com/p/go.net/context"
-	"github.com/savaki/stormpath-go/stormpath"
-	"net/http"
+	"github.com/savaki/stormpath-go/auth"
+	"github.com/savaki/stormpath-go/internal/httputil"
 )
 
 type Accounts struct {
-	apiKey stormpath.ApiKey
-	client stormpath.Http
+	client httputil.HttpClient
 	ctx    context.Context
 }
 
-func New(apiKey stormpath.ApiKey) *Accounts {
-	client := &http.Client{
-		Transport: &http.Transport{},
-	}
-	httpClient := &stormpath.HttpClient{ApiKey: apiKey, Client: client}
+func New(authFunc auth.AuthFunc) *Accounts {
+	httpClient := httputil.NewClient(authFunc)
 	return &Accounts{
-		apiKey: apiKey,
 		client: httpClient,
 		ctx:    context.Background(),
 	}
