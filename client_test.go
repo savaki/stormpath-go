@@ -59,7 +59,7 @@ func TestClient(t *testing.T) {
 				So(applications[0].CustomData, ShouldNotBeNil)
 				So(applications[0].DefaultAccountStoreMapping, ShouldBeNil)
 				So(applications[0].DefaultGroupStoreMapping, ShouldBeNil)
-				So(applications[0].Description, ShouldNotBeEmpty)
+				So(applications[0].Description, ShouldBeEmpty)
 				So(applications[0].Groups, ShouldNotBeNil)
 				So(applications[0].Href, ShouldNotBeEmpty)
 				So(applications[0].LoginAttempts, ShouldNotBeNil)
