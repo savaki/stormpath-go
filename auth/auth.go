@@ -2,6 +2,7 @@ package auth
 
 import (
 	"errors"
+	"github.com/savaki/httpctx"
 	"net/http"
 	"os"
 )
@@ -42,11 +43,10 @@ func EnvAuth() (apiKey ApiKey, err error) {
 	return
 }
 
-type AuthFunc func(*http.Request)
-
-func Authenticator(apiKey ApiKey) AuthFunc {
+func Authenticator(apiKey ApiKey) httpctx.AuthFunc {
 	_apiKey := apiKey
-	return func(req *http.Request) {
+	return func(req *http.Request) *http.Request {
 		req.SetBasicAuth(_apiKey.Id, _apiKey.Secret)
+		return req
 	}
 }

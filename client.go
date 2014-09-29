@@ -2,13 +2,13 @@ package stormpath
 
 import (
 	"code.google.com/p/go.net/context"
+	"github.com/savaki/httpctx"
 	"github.com/savaki/stormpath-go/auth"
-	"github.com/savaki/stormpath-go/internal/httputil"
 	. "github.com/savaki/stormpath-go/types"
 )
 
 type Client struct {
-	client httputil.HttpClient
+	client httpctx.HttpClient
 	ctx    context.Context
 	tenant *Tenant
 }
@@ -16,7 +16,7 @@ type Client struct {
 func WithTenant(apiKey auth.ApiKey, tenant *Tenant) *Client {
 	authFunc := auth.Authenticator(apiKey)
 	return &Client{
-		client: httputil.NewClient(authFunc),
+		client: httpctx.WithAuthFunc(authFunc),
 		tenant: tenant,
 		ctx:    context.Background(),
 	}

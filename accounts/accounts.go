@@ -4,14 +4,14 @@ import (
 	"bytes"
 	"code.google.com/p/go.net/context"
 	"encoding/base64"
+	"github.com/savaki/httpctx"
 	"github.com/savaki/stormpath-go/auth"
-	"github.com/savaki/stormpath-go/internal/httputil"
 	. "github.com/savaki/stormpath-go/types"
 	"net/url"
 )
 
 type Accounts struct {
-	client         httputil.HttpClient
+	client         httpctx.HttpClient
 	ctx            context.Context
 	applicationUrl string
 }
@@ -19,7 +19,7 @@ type Accounts struct {
 func FromUrl(apiKey auth.ApiKey, applicationUrl string) *Accounts {
 	authFunc := auth.Authenticator(apiKey)
 	return &Accounts{
-		client:         httputil.NewClient(authFunc),
+		client:         httpctx.WithAuthFunc(authFunc),
 		ctx:            context.Background(),
 		applicationUrl: applicationUrl,
 	}
