@@ -25,3 +25,9 @@ type Account struct {
 func (a Account) Url() string {
 	return a.Href
 }
+
+type Provider struct {
+	ProviderId  string `json:"providerId"`
+	Code        string `json:"code,omitempty"`
+	AccessToken string `json:"accessToken,omitempty"`
+}

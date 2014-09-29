@@ -39,6 +39,30 @@ func (a *Accounts) Create(account Account) (created *Account, err error) {
 	return
 }
 
+func (a *Accounts) LoginViaGoogle(accessCode string) (created *Account, err error) {
+	created = &Account{}
+	body := map[string]Provider{
+		"providerData": Provider{
+			ProviderId: "google",
+			Code:       accessCode,
+		},
+	}
+	err = a.client.Post(a.ctx, a.applicationUrl+"/accounts", body, created)
+	return
+}
+
+func (a *Accounts) LoginViaFacebook(accessToken string) (created *Account, err error) {
+	created = &Account{}
+	body := map[string]Provider{
+		"providerData": Provider{
+			ProviderId:  "facebook",
+			AccessToken: accessToken,
+		},
+	}
+	err = a.client.Post(a.ctx, a.applicationUrl+"/accounts", body, created)
+	return
+}
+
 func (a *Accounts) Search(email string) ([]Account, error) {
 	results := struct {
 		Items []Account `json:"items"`
