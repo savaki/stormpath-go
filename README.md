@@ -5,17 +5,17 @@ stormpath-go
 
 ## Tenant API
 
-Method | Path | Description | Status 
-------------- | ------------- | ------------- 
-GET | /v1/tenants/:tenantId | retrieve a specific tenant | TBD 
-GET | /v1/tenants/:tenantId/applications | retrieve applications associated with tenant | TBD 
-GET | /v1/tenants/:tenantId/directories | retrieve directories associated with tenant | TBD 
-GET | /v1/tenants/:tenantId/groups | retrieve groups associated with tenant | TBD 
+| Method | Path | Description | Status |
+| ------ | ---- | ----------- | ------ |
+| GET | /v1/tenants/:tenantId | retrieve a specific tenant | TBD |
+| GET | /v1/tenants/:tenantId/applications | retrieve applications associated with tenant | TBD |
+| GET | /v1/tenants/:tenantId/directories | retrieve directories associated with tenant | TBD |
+| GET | /v1/tenants/:tenantId/groups | retrieve groups associated with tenant | TBD |
 
 ## Application API
 
 | Method | Path | Description | Status |
-|---|---|---|
+| ------ | ---- | ----------- | ------ |
 | GET | /v1/applications/:applicationId | retrieve application info | TBD |
 | DELETE | /v1/applications/:applicationId | delete an application | TBD |
 | GET | /v1/applications/:applicationId/accounts | all accounts accessible to the application | TBD |
@@ -30,7 +30,7 @@ GET | /v1/tenants/:tenantId/groups | retrieve groups associated with tenant | TB
 ## Account Store Mappings API
 
 | Method | Path | Description | Status |
-|---|---|---|
+| ------ | ---- | ----------- | ------ |
 | POST | /v1/accountStoreMappings | create a new account storm mapping | TBD |
 | GET | /v1/accountStoreMappings/:accountStoreMappingId | retrieve an individual account storm mapping | TBD |
 | POST | /v1/accountStoreMappings/:accountStoreMappingId | update an individual account storm mapping | TBD |
@@ -39,7 +39,7 @@ GET | /v1/tenants/:tenantId/groups | retrieve groups associated with tenant | TB
 ## Directory Resource API
 
 | Method | Path | Description | Status |
-|---|---|---|
+| ------ | ---- | ----------- | ------ |
 | GET | /v1/directories/:directoryId | retrieve a directory resource | TBD | 
 | POST | /v1/directories/:directoryId | update a directory resource | TBD | 
 | DELETE | /v1/directories/:directoryId | delete a directory resource | TBD | 
@@ -50,7 +50,7 @@ GET | /v1/tenants/:tenantId/groups | retrieve groups associated with tenant | TB
 ## Group Resource API
 
 | Method | Path | Description | Status |
-|---|---|---|
+| ------ | ---- | ----------- | ------ |
 | GET | /v1/groups/:groupId | retrieve a group | TBD |
 | POST | /v1/groups/:groupId | update a group | TBD |
 | DELETE | /v1/groups/:groupId | delete a group | TBD |
@@ -62,7 +62,7 @@ GET | /v1/tenants/:tenantId/groups | retrieve groups associated with tenant | TB
 ## Group Membership API
 
 | Method | Path | Description | Status |
-|---|---|---|
+| ------ | ---- | ----------- | ------ |
 | POST | /v1/groupMemberships | create a group membership | TBD |
 | GET | /v1/groupMemberships/:groupMembershipId | retrieve a specific group membership | TBD |
 | POST| /v1/groupMemberships/:groupMembershipId | update a specific group membership | TBD |
@@ -71,7 +71,7 @@ GET | /v1/tenants/:tenantId/groups | retrieve groups associated with tenant | TB
 ## Account API
 
 | Method | Path | Description | Status |
-| :------ | :------ | :------ |
+| ------ | ---- | ----------- | ------ |
 | POST | /v1/directories/:directoryId/accounts | create an account | TBD |
 | GET | /v1/accounts/:accountId | retrieve a specific account | TBD |
 | POST | /v1/accounts/:accountId | update a specific account | TBD |
@@ -84,7 +84,7 @@ GET | /v1/tenants/:tenantId/groups | retrieve groups associated with tenant | TB
 ## Custom Data API
 
 | Method | Path | Description | Status |
-|---|---|---|
+| ------ | ---- | ----------- | ------ |
 | GET | /v1/accounts/:accountId/customData | retrieve custom account data | TBD |
 | POST | /v1/accounts/:accountId/customData | create custom account data | TBD |
 | GET | /v1/groups/:groupId/customData | retrieve custom group data | TBD |
