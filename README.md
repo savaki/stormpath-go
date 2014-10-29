@@ -5,12 +5,12 @@ stormpath-go
 
 ## Tenant API
 
-| Method | Path | Description | Status |
-| ------------- | ------------- | ------------- |
-| GET | /v1/tenants/:tenantId | retrieve a specific tenant | TBD |
-| GET | /v1/tenants/:tenantId/applications | retrieve applications associated with tenant | TBD |
-| GET | /v1/tenants/:tenantId/directories | retrieve directories associated with tenant | TBD |
-| GET | /v1/tenants/:tenantId/groups | retrieve groups associated with tenant | TBD |
+Method | Path | Description | Status 
+------------- | ------------- | ------------- 
+GET | /v1/tenants/:tenantId | retrieve a specific tenant | TBD 
+GET | /v1/tenants/:tenantId/applications | retrieve applications associated with tenant | TBD 
+GET | /v1/tenants/:tenantId/directories | retrieve directories associated with tenant | TBD 
+GET | /v1/tenants/:tenantId/groups | retrieve groups associated with tenant | TBD 
 
 ## Application API
 
