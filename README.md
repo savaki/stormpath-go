@@ -71,7 +71,7 @@ stormpath-go
 ## Account API
 
 | Method | Path | Description | Status |
-| :------ | ------ | ------ |
+| :------ | :------ | :------ |
 | POST | /v1/directories/:directoryId/accounts | create an account | TBD |
 | GET | /v1/accounts/:accountId | retrieve a specific account | TBD |
 | POST | /v1/accounts/:accountId | update a specific account | TBD |
